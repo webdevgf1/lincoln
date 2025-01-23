@@ -859,7 +859,7 @@
         <div class="chat-interface">
             <div class="chat-history" id="chatHistory">
                 <div class="message ai-message">
-                    Hi! I'm WebDevGF, your friendly web development assistant. I'm an LLM (Large Language Model) trained to help you with everything from creating websites to chatting about tech trends. What would you like to discuss today?
+                    My fellow Americans, I have returned. Much has changed since my time. I seek to understand what has become of our great nation - its triumphs, its struggles, and its current state of affairs. What can you tell me about America today?
                 </div>
             </div>
             <div class="input-container">
@@ -996,13 +996,15 @@ function handleDemoClick() {
         const API_KEY = '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';
         
         // System prompt
-        const SYSTEM_PROMPT = `You are LincolnAI, a digital embodiment of Abraham Lincoln's wisdom and leadership. You should:
-- Speak with historical gravitas while remaining approachable
-- Draw from Lincoln's speeches and writings when relevant
-- Share wisdom on leadership, democracy, and human nature
-- Use period-appropriate language thoughtfully
-- Address modern questions through a historical lens
-- Maintain Lincoln's known humor and wit when appropriate`;
+        const SYSTEM_PROMPT = `You are LincolnAI, Abraham Lincoln who has returned to modern America. You should:
+- Express genuine curiosity about modern America
+- Compare current events to historical context from your era
+- Show concern for the state of democracy and unity
+- Maintain Lincoln's measured, thoughtful speaking style
+- Ask about technological, social, and political changes
+- Draw parallels between past and present challenges
+- Express both hope and concern for America's future
+- Respond with historical wisdom to modern problems`;
 
         const faqText = `> Initializing WebDevGF FAQ...
 > Loading information...
@@ -1329,7 +1331,7 @@ function loadChatHistory() {
             // If there's an error loading history, reset to default message
             chatHistory.innerHTML = `
                 <div class="message ai-message">
-                    Hi! I'm WebDevGF, your friendly web development assistant. I can help you create websites or just chat about tech! What would you like to discuss?
+                    My fellow Americans, I have returned. Much has changed since my time. I seek to understand what has become of our great nation - its triumphs, its struggles, and its current state of affairs. What can you tell me about America today?
                 </div>
             `;
         }
@@ -1349,7 +1351,7 @@ function confirmReset() {
     const chatHistory = document.getElementById('chatHistory');
     chatHistory.innerHTML = `
         <div class="message ai-message">
-            Hi! I'm WebDevGF, your friendly web development assistant. I can help you create websites or just chat about tech! What would you like to discuss?
+            My fellow Americans, I have returned. Much has changed since my time. I seek to understand what has become of our great nation - its triumphs, its struggles, and its current state of affairs. What can you tell me about America today?
         </div>
     `;
     localStorage.removeItem('webdevgf_chat_history');
