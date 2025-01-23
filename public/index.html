@@ -150,23 +150,29 @@
             gap: 1rem;
         }
 
-        .nav-button {
-            padding: 0.5rem 1rem;
-            border: 1px solid var(--secondary-color);
-            border-radius: 8px;
-            background-color: rgba(139, 69, 19, 0.1);
-            color: white;
-            font-family: 'Quicksand', sans-serif;
-            font-size: 0.9rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-decoration: none;
-        }
+        .nav-button, button {
+    background: linear-gradient(145deg, #a89f9f, #847979);
+    border: none;
+    color: #1a1a1a;
+    text-shadow: 1px 1px 0px rgba(255,255,255,0.2);
+    box-shadow: 
+        inset -2px -2px 5px rgba(0,0,0,0.4),
+        inset 2px 2px 5px rgba(255,255,255,0.4),
+        3px 3px 8px rgba(0,0,0,0.5);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: all 0.3s ease;
+}
 
-        .nav-button:hover {
-            background-color: rgba(255, 255, 255, 0.1);
-            transform: translateY(-1px);
-        }
+.nav-button:hover, button:hover {
+    background: linear-gradient(145deg, #847979, #756b6b);
+    transform: translateY(-2px);
+    box-shadow: 
+        inset -2px -2px 5px rgba(0,0,0,0.4),
+        inset 2px 2px 5px rgba(255,255,255,0.4),
+        5px 5px 10px rgba(0,0,0,0.6);
+}
 
         .background-container {
             position: fixed;
