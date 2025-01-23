@@ -856,21 +856,12 @@ model-viewer::part(default) {
             <model-viewer
     id="characterViewer"
     src="https://raw.githubusercontent.com/my904/lincoln/main/lincoln.glb"
+    camera-controls
+    tone-mapping="neutral"
+    shadow-intensity="1"
     camera-target="0 1.6 0"
     camera-orbit="0deg 80deg 1.4m"
     field-of-view="25deg"
-    style="--model-color: rgb(150, 150, 150);"
-    exposure="2"
-    environment-image="neutral"
-    skybox-image="legacy"
-    auto-rotate="false"
-    interaction-policy="none"
-    disable-zoom
-    disable-pan
-    camera-controls="false"
-    ambient-light-intensity="2"
-    environment-intensity="2"
-    renderer-settings='{"alpha":true, "antialias":true, "colorManagement":true}'
 ></model-viewer>
         </div>
 
