@@ -847,23 +847,25 @@
                 <div class="loading-text">INITIALIZING...</div>
             </div>
             <model-viewer
-    id="characterViewer"
-    src="https://raw.githubusercontent.com/my904/lincoln/main/lincoln.glb"
-    camera-target="0 1.6 0"
-    camera-orbit="-30deg 75deg 1.5m"
-    field-of-view="30deg"
-    exposure="3"
-    max-camera-orbit="infinity 180deg infinity"
-    min-camera-orbit="-infinity -180deg infinity"
-    auto-rotate
-    environment-image="neutral"
-    skybox-image="neutral"
-    shadow-intensity="0"
-    ambient-light-intensity="5"
-    environment-intensity="5"
-    light-probe-intensity="5"
-    stage-light-intensity="5"
-></model-viewer>
+            id="characterViewer"
+            src="https://raw.githubusercontent.com/my904/lincoln/main/lincoln.glb"
+            camera-target="0 1.6 0"
+            camera-orbit="0deg 80deg 1.4m"
+            field-of-view="25deg"
+            exposure="2"
+            shadow-intensity="1"
+            environment-image="legacy"
+            skybox-image="legacy"
+            auto-rotate="false"
+            interaction-policy="none"
+            disable-zoom
+            disable-pan
+            camera-controls="false"
+            ambient-light-intensity="10"
+            environment-intensity="10"
+            tone-mapping="linear"
+            experimental-webgl-tone-mapping="linear"
+        ></model-viewer>
         </div>
 
         <div class="chat-interface">
