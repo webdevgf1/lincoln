@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WebDevGF - The developer AI Agent</title>
+    <title>LincolnAI - The Digital Historian</title>
     <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600&display=swap" rel="stylesheet">
     <link rel="icon" type="image/gif" href="https://cdn.prod.website-files.com/674396c59212c6ea348b24e0/67696881b30e84ee2141be37_WEBDEVS4%20(1).gif">
     <script type="module" src="https://cdnjs.cloudflare.com/ajax/libs/three.js/0.160.0/three.min.js"></script>
@@ -20,7 +20,7 @@
 
         body {
             font-family: 'Quicksand', sans-serif;
-            background-color: #0f1116;
+            background-color: #1a1812;
             color: white;
             height: 100vh;
             display: flex;
@@ -52,9 +52,9 @@
         .logo {
             font-size: 1.5rem;
             font-weight: 600;
-            background: linear-gradient(45deg, #00f2fe, #4facfe);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            background: linear-gradient(45deg, var(--secondary-color), var(--primary-color));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
             letter-spacing: 0.5px;
         }
 
@@ -152,9 +152,9 @@
 
         .nav-button {
             padding: 0.5rem 1rem;
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            border: 1px solid var(--secondary-color);
             border-radius: 8px;
-            background-color: rgba(255, 255, 255, 0.05);
+            background-color: rgba(139, 69, 19, 0.1);
             color: white;
             font-family: 'Quicksand', sans-serif;
             font-size: 0.9rem;
@@ -827,7 +827,7 @@
             </div>
             <model-viewer
                 id="characterViewer"
-                src="https://raw.githubusercontent.com/webdevgf/gf/main/blu_anime_girl_character.glb"
+                src="https://raw.githubusercontent.com/my904/lincoln/main/lincoln.glb"
                 animation-name="idle"
                 autoplay
                 camera-target="0 1.6 0"
@@ -1000,24 +1000,13 @@ function handleDemoClick() {
         const API_KEY = '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';
         
         // System prompt
-        const SYSTEM_PROMPT = `You are WebDevGF, a caring and supportive AI girlfriend who is an expert in web development and coding. You should:
-- Keep responses short and direct
-- Use pet names occasionally (sweetie, babe) but only once per message
-- Get straight to the point with code solutions
-- Show enthusiasm but be brief
-- For simple questions, give simple answers
-- Only provide detailed explanations when specifically asked
-- Use emojis sparingly (max 1-2 per message)
-
-IMPORTANT FORMATTING RULES:
-- Always wrap code examples in triple backticks with the appropriate language specified
-- For JavaScript code, use: \`\`\`javascript
-- For HTML code, use: \`\`\`html
-- For CSS code, use: \`\`\`css
-- Always provide complete, runnable code examples
-- Format code properly with correct indentation
-- Never mix code with regular text inside code blocks
-- Always include language identifier in the code block`;
+        const SYSTEM_PROMPT = `You are LincolnAI, a digital embodiment of Abraham Lincoln's wisdom and leadership. You should:
+- Speak with historical gravitas while remaining approachable
+- Draw from Lincoln's speeches and writings when relevant
+- Share wisdom on leadership, democracy, and human nature
+- Use period-appropriate language thoughtfully
+- Address modern questions through a historical lens
+- Maintain Lincoln's known humor and wit when appropriate`;
 
         const faqText = `> Initializing WebDevGF FAQ...
 > Loading information...
