@@ -360,12 +360,11 @@
         }
 
         model-viewer {
-            width: 100%;
-            height: 120%;
-            background-color: transparent;
-            --poster-color: transparent;
-            margin-top: -80px;
-        }
+    --poster-color: transparent;
+    --progress-bar-height: 0;
+    --progress-mask: transparent;
+    background-color: transparent;
+}
 
         .chat-interface {
             flex: 1;
@@ -851,22 +850,19 @@
     id="characterViewer"
     src="https://raw.githubusercontent.com/my904/lincoln/main/lincoln.glb"
     camera-target="0 1.6 0"
-    camera-orbit="0deg 80deg 1.4m"
-    field-of-view="25deg"
-    exposure="2"
+    camera-orbit="-30deg 75deg 1.5m"
+    field-of-view="30deg"
+    exposure="3"
+    max-camera-orbit="infinity 180deg infinity"
+    min-camera-orbit="-infinity -180deg infinity"
+    auto-rotate
+    environment-image="neutral"
+    skybox-image="neutral"
     shadow-intensity="0"
-    environment-image="legacy"
-    skybox-image="legacy"
-    auto-rotate="false"
-    interaction-policy="none"
-    disable-zoom
-    disable-pan
-    camera-controls="false"
-    ambient-light-intensity="3"
-    environment-intensity="3"
-    animation-name="none"
-    animation-crossfade-duration="0"
-    ar-status="not-presenting"
+    ambient-light-intensity="5"
+    environment-intensity="5"
+    light-probe-intensity="5"
+    stage-light-intensity="5"
 ></model-viewer>
         </div>
 
