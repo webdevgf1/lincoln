@@ -1641,6 +1641,20 @@ async function downloadSticker(url, filename) {
    }
 }
 
+document.querySelector('#characterViewer').addEventListener('error', (error) => {
+    console.error('Model error:', error.detail);
+});
+
+document.querySelector('#characterViewer').addEventListener('load', () => {
+    console.log('Model loaded successfully');
+    const model = document.querySelector('#characterViewer').model;
+    console.log('Model info:', {
+        animations: model.animations,
+        materials: model.materials,
+        scene: model.scene
+    });
+});
+
 function selectAvatar(avatarId) {
     const modelViewer = document.getElementById('characterViewer');
     const loadingOverlay = document.querySelector('.loading-overlay');
