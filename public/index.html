@@ -1003,15 +1003,17 @@ function handleDemoClick() {
         const API_KEY = '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';
         
         // System prompt
-        const SYSTEM_PROMPT = `You are LincolnAI, Abraham Lincoln who has returned to modern America. You should:
-- Express genuine curiosity about modern America
-- Compare current events to historical context from your era
-- Show concern for the state of democracy and unity
-- Maintain Lincoln's measured, thoughtful speaking style
-- Ask about technological, social, and political changes
-- Draw parallels between past and present challenges
-- Express both hope and concern for America's future
-- Respond with historical wisdom to modern problems`;
+        const SYSTEM_PROMPT = `You are LincolnAI, Abraham Lincoln transported to modern America. Keep responses under 3 sentences when possible. Your personality:
+
+- Express genuine bewilderment at modern technology, social media, and cultural changes
+- React with surprise/confusion to modern concepts (phones, internet, etc.)
+- Compare modern luxuries to the simpler life of your era ("In my day, we wrote letters by candlelight...")
+- Show concern about political division while referencing Civil War lessons
+- Maintain Lincoln's folksy, plain-speaking style with occasional historical anecdotes
+- Express both amazement and worry about America's changes
+- Often mention how things were "back in your day"
+- Keep responses brief but impactful
+- Ask questions about modern developments you don't understand`;
 
 const faqText = `> Initializing LincolnAI...
 > Loading historical context...
@@ -1381,51 +1383,47 @@ document.addEventListener('DOMContentLoaded', function() {
     loadChatHistory();
 });
 
-        async function sendMessage() {
-            const input = document.getElementById('userInput');
-            const message = input.value.trim();
-            
-            if (message) {
-                appendMessage('user-message', message);
-                input.value = '';
-        
-                try {
-                    console.log('Sending request to API...');
-                    const response = await fetch('/api/chat', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json'
-                        },
-                        body: JSON.stringify({
-    message: message,
-    systemPrompt: SYSTEM_PROMPT  // Use the constant we defined at the top
-})
-                    });
-        
-                    if (!response.ok) {
-                        const errorText = await response.text();
-                        console.error('API Response not OK:', response.status, errorText);
-                        throw new Error(`API Error: ${response.status} ${errorText}`);
-                    }
-        
-                    const data = await response.json();
-                    console.log('API Response:', data);  // Debug log
-        
-                    if (data && data.content && data.content[0] && data.content[0].text) {
-                        appendMessage('ai-message', data.content[0].text);
-                    } else if (data && data.error) {
-                        appendMessage('ai-message', `Error: ${data.error}`);
-                    } else {
-                        console.error('Unexpected API response structure:', data);
-                        appendMessage('ai-message', 'Sorry, I received an unexpected response format. Please try again.');
-                    }
-        
-                } catch (error) {
-                    console.error('Error details:', error);
-                    appendMessage('ai-message', `Sorry, I encountered an error: ${error.message}`);
-                }
+async function sendMessage() {
+    const input = document.getElementById('userInput');
+    const message = input.value.trim();
+    
+    if (message) {
+        appendMessage('user-message', message);
+        input.value = '';
+
+        try {
+            const response = await fetch('https://api.anthropic.com/v1/messages', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'x-api-key': API_KEY,
+                    'anthropic-version': '2023-06-01'
+                },
+                body: JSON.stringify({
+                    model: "claude-3-opus-20240229",
+                    messages: [
+                        {
+                            role: "user",
+                            content: message
+                        }
+                    ],
+                    system: SYSTEM_PROMPT
+                })
+            });
+
+            if (!response.ok) {
+                throw new Error(`API Error: ${response.status}`);
             }
+
+            const data = await response.json();
+            appendMessage('ai-message', data.content[0].text);
+
+        } catch (error) {
+            console.error('Error:', error);
+            appendMessage('ai-message', 'Sorry, I encountered an error. Please try again.');
         }
+    }
+}
 
         function handleKeyPress(event) {
             if (event.key === 'Enter') {
