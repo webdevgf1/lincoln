@@ -417,6 +417,20 @@
     transition: background-image 0.3s ease;
 }
 
+.lighting-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: 
+        radial-gradient(circle at 30% 30%, rgba(255,255,255,0.4) 0%, transparent 60%),
+        radial-gradient(circle at 70% 30%, rgba(255,255,255,0.4) 0%, transparent 60%),
+        radial-gradient(circle at center 40%, rgba(255,255,255,0.5) 0%, transparent 70%);
+    pointer-events: none;
+    z-index: 1;
+}
+
 /* Better hover effect for music items */
 .music-item:hover .play-btn {
     transform: scale(1.1);
@@ -863,7 +877,7 @@
     <div id="faqModal" class="modal">
         <div class="modal-content">
             <div class="modal-header">
-                <div class="terminal-title">WebDevGF FAQ</div>
+                <div class="terminal-title">LincolnAI FAQ</div>
                 <span class="close-btn" onclick="closeFAQ()">&times;</span>
             </div>
             <div class="terminal">
@@ -875,8 +889,8 @@
     <!-- Footer -->
     <footer class="footer">
         <div class="footer-content">
-            <div class="copyright">Copyright © 2025 webdevgf</div>
-            <div class="footer-middle">CA: 8htXrHBRbKCrZFcXLnkZAo5NejZBrpKNojaKw11opump</div>
+            <div class="copyright">Copyright © 2025 LincolnAI</div>
+            <div class="footer-middle">CA: COMING SOON</div>
             <div class="footer-links">
                 <a href="https://x.com" target="_blank" class="footer-link">
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
