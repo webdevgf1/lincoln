@@ -824,6 +824,7 @@ model-viewer::part(default) {
     <audio id="bgMusic" loop>
         <source src="https://raw.githubusercontent.com/webdevgf1/lincoln/main/public/lincoln.mp3" type="audio/mpeg">
     </audio>
+    <audio id="eagleSound" src="https://raw.githubusercontent.com/webdevgf1/lincoln/main/public/eagle.mp3"></audio>
 <div class="initial-loading">
     <img src="https://cdn.prod.website-files.com/674396c59212c6ea348b24e0/6792b693684f2bf8a9dcf947_ABRAHAM-LINCOLN-23-01-2025.png" alt="WebDevGF Logo" class="loading-logo">
 </div>
@@ -917,13 +918,28 @@ model-viewer::part(default) {
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            const bgMusic = document.getElementById('bgMusic');
-            bgMusic.volume = 0.2;
-            
-            document.body.addEventListener('click', function() {
-                bgMusic.play();
-            }, { once: true });
-        });
+    const bgMusic = document.getElementById('bgMusic');
+    bgMusic.volume = 0.2;
+    
+    document.body.addEventListener('click', function() {
+        bgMusic.play();
+    }, { once: true });
+
+    const eagleSound = document.getElementById('eagleSound');
+    eagleSound.volume = 0.3;
+
+    function playEagleSound() {
+        const randomDelay = Math.floor(Math.random() * (10000 - 6000) + 6000);
+        setTimeout(() => {
+            eagleSound.play();
+            playEagleSound();
+        }, randomDelay);
+    }
+
+    document.addEventListener('click', () => {
+        playEagleSound();
+    }, { once: true });
+});
 function createPreview(code) {
     const previewWindow = window.open('', '_blank');
     const isHTML = code.includes('<html') || code.includes('<!DOCTYPE html');
