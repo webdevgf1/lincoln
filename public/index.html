@@ -1407,32 +1407,14 @@ async function sendMessage() {
         input.value = '';
 
         try {
-            const response = await fetch('https://api.anthropic.com/v1/messages', {
+            const response = await fetch('/api/chat', {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'x-api-key': API_KEY,
-                    'anthropic-version': '2023-06-01'
-                },
-                body: JSON.stringify({
-                    model: "claude-3-opus-20240229",
-                    messages: [
-                        {
-                            role: "user",
-                            content: message
-                        }
-                    ],
-                    system: SYSTEM_PROMPT
-                })
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ message, systemPrompt: SYSTEM_PROMPT })
             });
-
-            if (!response.ok) {
-                throw new Error(`API Error: ${response.status}`);
-            }
 
             const data = await response.json();
             appendMessage('ai-message', data.content[0].text);
-
         } catch (error) {
             console.error('Error:', error);
             appendMessage('ai-message', 'Sorry, I encountered an error. Please try again.');
