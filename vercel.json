@@ -1,0 +1,26 @@
+{
+  "functions": {
+    "api/*.js": {
+      "memory": 1024,
+      "maxDuration": 60
+    }
+  },
+  "routes": [
+    {
+      "src": "/api/telegram-webhook/(.*)",
+      "dest": "/api/telegram-webhook.js"
+    },
+    {
+      "src": "/api/deploy-telegram-bot",
+      "dest": "/api/deploy-telegram-bot.js"
+    },
+    {
+      "src": "/chatbots",
+      "dest": "/public/chatbots.html"
+    },
+    {
+      "src": "/",
+      "dest": "/public/index.html"
+    }
+  ]
+}

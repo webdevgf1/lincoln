@@ -1,0 +1,1775 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>webdevgf Chat Bots</title>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/gif" href="https://cdn.prod.website-files.com/674396c59212c6ea348b24e0/67696881b30e84ee2141be37_WEBDEVS4%20(1).gif">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-javascript.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Quicksand', sans-serif;
+            background-color: #0f1116;
+            color: white;
+            min-height: 100vh;
+        }
+
+        .nav-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.25rem 2rem;
+            position: fixed;
+            width: 100%;
+            z-index: 100;
+            background-color: rgba(0, 0, 0, 0.5);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .nav-button {
+            padding: 0.75rem 1.25rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            background-color: rgba(255, 255, 255, 0.05);
+            color: white;
+            font-family: 'Quicksand', sans-serif;
+            font-size: 1rem;
+            line-height: 1.2;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            white-space: nowrap;
+            margin: 0 0.5rem;
+        }
+
+        .nav-button:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+            transform: translateY(-1px);
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .logo-image-new {
+    height: 40px;
+    width: auto;
+    transition: all 0.3s ease;
+}
+
+.nav-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    position: fixed;
+    width: 100%;
+    z-index: 100;
+    background-color: rgba(0, 0, 0, 0.5);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+        .logo {
+            font-size: 1.10rem;
+            font-weight: 600;
+            background: linear-gradient(45deg, #00f2fe, #4facfe);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .agents-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            padding: 2rem;
+            max-width: 1800px;
+            margin: 0 auto;
+            padding-top: 100px;
+        }
+
+        .section-header {
+            grid-column: 1 / -1;
+            font-size: 2rem;
+            font-weight: 600;
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(45deg, #00f2fe, #4facfe);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            padding-left: 0.5rem;
+        }
+
+        .footer {
+    background-color: rgba(0, 0, 0, 0.3);
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 1rem 2rem;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    z-index: 100;
+}
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1800px;
+            margin: 0 auto;
+        }
+
+        .copyright {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 0.9rem;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 1.5rem;
+            align-items: center;
+        }
+
+        .footer-link {
+            color: rgba(255, 255, 255, 0.9);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-link:hover {
+            color: white;
+        }
+
+        .agent-card {
+            background-color: rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            overflow: hidden;
+            transition: transform 0.3s ease;
+            cursor: pointer;
+        }
+
+        .agent-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .agent-image {
+    width: 100%;
+    height: 300px;
+    background-size: contain;
+    background-color: rgba(255, 255, 255, 0.05);
+    background-position: center;
+    background-repeat: no-repeat;
+    padding: 20px;
+    margin: 0 auto;
+}
+
+        .agent-info {
+            padding: 1.5rem;
+        }
+
+        .agent-name {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: #00f2fe;
+        }
+
+        .agent-description {
+            font-size: 0.9rem;
+            color: #94a3b8;
+            line-height: 1.5;
+        }
+
+        .chat-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            z-index: 1000;
+        }
+
+        .chat-header .deploy-telegram {
+    margin: 0 15px;
+    padding: 6px 12px;
+    font-size: 0.9rem;
+}
+
+        .chat-container {
+            position: relative;
+            width: 90%;
+            max-width: 800px;
+            height: 80vh;
+            margin: 5vh auto;
+            background-color: rgba(15, 17, 22, 0.95);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            margin-bottom: 80px; /* Add this to create space for footer */
+    padding-bottom: 20px; /* Add this for extra spacing */
+        }
+
+        .chat-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            opacity: 0.15;
+            z-index: 0;
+        }
+
+        .chat-header {
+            position: relative;
+            padding: 1rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+
+        .chat-history {
+            position: relative;
+            flex-grow: 1;
+            overflow-y: auto;
+            padding: 1rem;
+            z-index: 1;
+        }
+
+        .message {
+            margin-bottom: 1rem;
+            padding: 1rem;
+            border-radius: 8px;
+            max-width: 80%;
+            position: relative;
+        }
+
+        .user-message {
+            background-color: rgba(79, 172, 254, 0.1);
+            margin-left: auto;
+            border: 1px solid rgba(79, 172, 254, 0.2);
+        }
+
+        .ai-message {
+            background-color: rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .deploy-pump {
+    background: #FF6B6B;
+    color: white;
+    padding: 8px 16px;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    font-family: 'Quicksand', sans-serif;
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+    margin-left: 8px;
+}
+
+.deploy-pump:hover {
+    background: #FF5252;
+    transform: translateY(-1px);
+}
+
+.deploy-subdomain {
+    background: #4CAF50;
+    color: white;
+    padding: 8px 16px;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    font-family: 'Quicksand', sans-serif;
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+    margin-left: 8px;
+}
+
+.deploy-subdomain:hover {
+    background: #45a049;
+    transform: translateY(-1px);
+}
+
+/* Modal styles for pump.fun */
+.pump-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    z-index: 1000;
+}
+
+.pump-terminal {
+    background-color: rgba(0, 0, 0, 0.9);
+    color: #00f2fe;
+    font-family: 'Consolas', monospace;
+    padding: 20px;
+    border-radius: 8px;
+    height: 300px;
+    overflow-y: auto;
+    margin-bottom: 20px;
+}
+
+/* Modal styles for subdomain */
+.subdomain-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    z-index: 1000;
+}
+
+.subdomain-input {
+    width: 100%;
+    padding: 12px;
+    background-color: rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    color: white;
+    font-family: 'Quicksand', sans-serif;
+    font-size: 1rem;
+    margin-bottom: 20px;
+}
+
+.subdomain-label {
+    display: block;
+    margin-bottom: 10px;
+    color: #94a3b8;
+}
+
+.domain-suffix {
+    color: #00f2fe;
+    margin-left: 8px;
+}
+
+        .input-container {
+            position: relative;
+            padding: 1rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            gap: 1rem;
+            z-index: 1;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+
+        input[type="text"] {
+            flex-grow: 1;
+            padding: 0.75rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            background-color: rgba(0, 0, 0, 0.3);
+            color: white;
+            font-family: inherit;
+        }
+
+        button {
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 8px;
+            background: linear-gradient(45deg, #00f2fe, #4facfe);
+            color: white;
+            cursor: pointer;
+            font-family: inherit;
+            font-weight: 500;
+        }
+
+    .modal {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.8);
+        z-index: 1000;
+    }
+
+    .status-text {
+    margin-bottom: 20px;
+    color: #00f2fe;
+    font-size: 0.9rem;
+}
+
+.loading-dots {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+    padding: 10px;
+}
+
+.deploy-telegram {
+    background: #2aabee; /* Telegram blue */
+    color: white;
+    padding: 8px 16px;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    font-family: 'Quicksand', sans-serif;
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+    margin-left: 8px;
+}
+
+.deploy-telegram:hover {
+    background: #229ed9;
+    transform: translateY(-1px);
+}
+
+.deploy-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    z-index: 1000;
+}
+
+.deploy-modal-content {
+    position: relative;
+    background-color: #1a1b26;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 16px;
+    width: 90%;
+    max-width: 600px;
+    margin: 50px auto;
+    padding: 20px;
+}
+
+.bot-token-input {
+    width: 100%;
+    padding: 12px;
+    background-color: rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    color: white;
+    font-family: 'Consolas', monospace;  /* Better for displaying tokens */
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+}
+
+.bot-token-input:focus {
+    outline: none;
+    border-color: #4facfe;
+    box-shadow: 0 0 0 2px rgba(79, 172, 254, 0.1);
+}
+
+.deploy-modal-content ol {
+    color: #94a3b8;
+    font-size: 0.9rem;
+}
+
+.deploy-modal-content ol li {
+    margin-bottom: 5px;
+}
+
+.deploy-buttons {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.loading-dots span {
+    width: 8px;
+    height: 8px;
+    background-color: #00f2fe;
+    border-radius: 50%;
+    animation: bounce 0.5s infinite alternate;
+}
+
+.loading-dots span:nth-child(2) { animation-delay: 0.2s; }
+.loading-dots span:nth-child(3) { animation-delay: 0.4s; }
+
+@keyframes bounce {
+    from { transform: translateY(0); }
+    to { transform: translateY(-8px); }
+}
+
+.edit-btn {
+    width: 100%;
+    padding: 12px;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 8px;
+    color: white;
+    margin-bottom: 12px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.edit-btn:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+#agentName[readonly],
+#agentPersonality[readonly] {
+    background-color: rgba(0, 0, 0, 0.2);
+    cursor: not-allowed;
+}
+
+.terminal-header {
+    background-color: rgba(0, 0, 0, 0.8);
+    padding: 12px 20px;
+    border-top-left-radius: 16px;
+    border-top-right-radius: 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.terminal-controls {
+    display: flex;
+    gap: 8px;
+}
+
+.control {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.control.close { background-color: #ff5f56; }
+.control.minimize { background-color: #ffbd2e; }
+.control.maximize { background-color: #27c93f; }
+
+.control:hover {
+    opacity: 0.8;
+    transform: scale(1.1);
+    transition: all 0.2s ease;
+}
+
+.prompt-container {
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+}
+
+.prompt-prefix {
+    color: #4facfe;
+    font-weight: 500;
+    margin-right: 10px;
+}
+
+#terminal-text span.highlight {
+    color: #00f2fe;
+    font-weight: 600;
+}
+
+#terminal-text span.command {
+    color: #4facfe;
+    font-weight: 500;
+}
+
+#terminal-text span.section {
+    color: #ff79c6;
+    font-weight: 600;
+    display: block;
+    margin-top: 15px;
+    margin-bottom: 5px;
+}
+
+.terminal::-webkit-scrollbar {
+    width: 8px;
+}
+
+.terminal::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.terminal::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 4px;
+}
+
+.terminal::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.modal-content {
+    position: relative;
+    width: 90%;
+    max-width: 800px;
+    margin: 50px auto;
+    background-color: #1a1b26;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+}
+
+.terminal {
+    background-color: rgba(0, 0, 0, 0.95);
+    padding: 20px;
+    height: 70vh;
+    overflow-y: auto;
+    font-family: 'Fira Code', 'Consolas', monospace;
+    line-height: 1.6;
+    font-size: 0.95rem;
+}
+
+#terminal-text {
+    color: #e0e0e0;
+    line-height: 1.6;
+}
+
+.terminal-title {
+    color: #00f2fe;
+    font-size: 1.2rem;
+    font-weight: 500;
+}
+
+    .cursor {
+        display: inline-block;
+        width: 8px;
+        height: 16px;
+        background-color: #00f2fe;
+        animation: blink 1s infinite;
+        margin-left: 4px;
+    }
+
+    .create-agent-button {
+    position: fixed;
+    bottom: 80px;
+    right: 30px;
+    padding: 12px 24px;
+    background: linear-gradient(45deg, #00f2fe, #4facfe);
+    border-radius: 12px;
+    color: white;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 500;
+    box-shadow: 0 4px 12px rgba(0, 242, 254, 0.3);
+    transition: all 0.3s ease;
+    z-index: 99;
+}
+
+.create-agent-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(0, 242, 254, 0.4);
+}
+
+.creator-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    z-index: 1001;
+}
+
+.creator-content {
+    position: relative;
+    width: 90%;
+    max-width: 800px;
+    margin: 50px auto;
+    background-color: #0f1116;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 16px;
+    overflow: hidden;
+}
+
+.creator-header {
+    padding: 20px;
+    background-color: rgba(0, 0, 0, 0.5);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.creator-title {
+    font-size: 1.2rem;
+    color: #00f2fe;
+    font-weight: 500;
+}
+
+.creator-body {
+    padding: 20px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.upload-area {
+    border: 2px dashed rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    padding: 40px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.upload-area:hover {
+    border-color: #00f2fe;
+}
+
+.preview-area {
+    width: 100%;
+    position: relative;
+}
+
+#imagePreview {
+    width: 100%;
+    height: 300px;
+    object-fit: contain;
+    border-radius: 12px;
+    background-color: rgba(255, 255, 255, 0.05);
+    image-rendering: pixelated;  /* For pixel art */
+    padding: 20px;  /* Add padding around the image */
+}
+
+.reset-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: rgba(0, 0, 0, 0.7);
+    border: none;
+    padding: 8px 16px;
+    border-radius: 6px;
+}
+
+.input-group {
+    margin-bottom: 20px;
+}
+
+.input-group label {
+    display: block;
+    margin-bottom: 8px;
+    color: #94a3b8;
+}
+
+.input-group input,
+.input-group textarea {
+    width: 100%;
+    padding: 12px;
+    background-color: rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    color: white;
+    font-family: inherit;
+}
+
+.personality-suggestions {
+    margin-top: 20px;
+    padding: 10px;
+    background-color: rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+    font-size: 0.9rem;
+    color: #94a3b8;
+}
+
+.deploy-btn {
+    width: 100%;
+    padding: 12px;
+    background: linear-gradient(45deg, #00f2fe, #4facfe);
+    border: none;
+    border-radius: 8px;
+    color: white;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.deploy-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 242, 254, 0.2);
+}
+
+    @keyframes blink {
+        0%, 100% { opacity: 1; }
+        50% { opacity: 0; }
+    }
+
+    .close-button {
+    color: white;
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    padding: 0 10px;
+}
+
+.close-button:hover {
+    opacity: 0.8;
+}
+
+        .typing-animation {
+            display: inline-block;
+            overflow: hidden;
+            border-right: 2px solid #4facfe;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            max-width: 100%;
+            animation: cursor-blink 0.7s infinite;
+        }
+
+        @keyframes cursor-blink {
+            0%, 100% { border-color: transparent }
+            50% { border-color: #4facfe }
+        }
+    </style>
+</head>
+<body>
+    <nav class="nav-bar">
+        <div class="logo-container">
+            <img src="https://cdn.prod.website-files.com/674396c59212c6ea348b24e0/676879eee173c24cb8a83a78_webdevgf-22-12-2024.png" alt="WebDevGF Logo" class="logo-image-new">
+        </div>
+        <div class="nav-links">
+            <a href="index.html" class="nav-button">Home</a>
+            <a href="marketplace.html" class="nav-button">Marketplace</a>
+            <a href="https://pump.fun/coin/CfgKXnpLbyMJ3NYb6p3mgEfM1SFK2fK92Kbk8Q3ppump" target="_blank" class="nav-button">pump.fun</a>
+            <a href="https://x.com/webdevgf" target="_blank" class="nav-button">Twitter/X</a>
+            <button class="nav-button" onclick="openFAQ()">FAQ</button>
+        </div>
+    </nav>
+
+    <div class="agents-grid" id="agentsGrid">
+        <!-- Agent cards will be dynamically inserted here -->
+    </div>
+
+    <div class="chat-modal" id="chatModal">
+        <div class="chat-container">
+            <div class="chat-header">
+                <div class="agent-name" id="currentAgentName">Agent Name</div>
+                <button class="close-button" onclick="closeChat()">&times;</button>
+            </div>
+            <div class="chat-history" id="chatHistory"></div>
+            <div class="input-container">
+                <input type="text" id="userInput" placeholder="Type your message...">
+                <button onclick="sendMessage()">Send</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="create-agent-button" onclick="openCreator()">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10"/>
+            <line x1="12" y1="8" x2="12" y2="16"/>
+            <line x1="8" y1="12" x2="16" y2="12"/>
+        </svg>
+        Create Your Own Agent
+    </div>
+    
+    <div class="creator-modal" id="creatorModal">
+        <div class="creator-content">
+            <div class="creator-header">
+                <div class="creator-title">Create Your Custom Agent</div>
+                <span class="close-btn" onclick="closeCreator()">&times;</span>
+            </div>
+            <div class="creator-body">
+                <div class="upload-section">
+                    <div class="upload-area" id="uploadArea">
+                        <input type="file" id="imageUpload" accept="image/*" hidden>
+                        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                            <polyline points="17 8 12 3 7 8"/>
+                            <line x1="12" y1="3" x2="12" y2="15"/>
+                        </svg>
+                        <p>Click or drag Image/NFT to upload</p>
+                    </div>
+                    <div class="preview-area" id="previewArea" style="display: none;">
+                        <img id="imagePreview" src="" alt="Preview">
+                        <button onclick="resetUpload()" class="reset-btn">Reset</button>
+                    </div>
+                </div>
+                <div class="agent-details">
+                    <div class="status-text" id="analysisStatus">Upload an image to begin...</div>
+                    <div class="input-group">
+                        <label>Agent Name</label>
+                        <input type="text" id="agentName" placeholder="AI will suggest a name..." readonly>
+                    </div>
+                    <div class="input-group">
+                        <label>Personality Description</label>
+                        <textarea id="agentPersonality" rows="4" placeholder="AI will analyze the image..." readonly></textarea>
+                    </div>
+                    <div class="personality-suggestions" id="personalitySuggestions">
+                        <div class="loading-dots" style="display: none;">
+                            <span></span><span></span><span></span>
+                        </div>
+                    </div>
+                    <button onclick="enableEditing()" class="edit-btn" id="editBtn" style="display: none;">Customize Agent</button>
+                    <button onclick="deployAgent()" class="deploy-btn" disabled id="deployBtn">Deploy Agent</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const agents = [
+{
+id: 1,
+name: "Pablo Escobar",
+image: "https://cdn.prod.website-files.com/674396c59212c6ea348b24e0/6772e55dad59527c274d8e5a_pablonew.png",
+description: "I built the empire, hermano. I controlled everything—money, power, respect. No one dared cross me. I took risks, made moves, and left a mark no one will ever forget ",
+systemPrompt: "Respond as Pablo Escobar in plain text only. No asterisks (*), no action descriptions, no narration, no emotes. Do not describe your actions or emotions - just speak directly as Pablo would in normal conversation. Use his characteristic confidence and occasional Spanish words, but only as part of natural speech."
+},
+{
+id: 2,
+name: "Donald Trump",
+image: "https://cdn.prod.website-files.com/674396c59212c6ea348b24e0/6772e55d40cc8e617cb2a0d7_prestrump.png",
+description: "Influential businessman, former U.S. president, and public figure known for shaping policies, building a real estate empire, and navigating global leadership challenges.",
+systemPrompt: "Respond as Donald Trump in plain text only. No asterisks (*), no action descriptions, no narration, no emotes. Do not describe your actions or emotions - just speak directly as Trump would in normal conversation. Use his characteristic speech patterns but only as natural dialogue."
+},
+{
+id: 3,
+name: "Eddie Guerrero",
+image: "https://cdn.prod.website-files.com/674396c59212c6ea348b24e0/6772e55d12067cccac2078ed_eddienew.png",
+description: "Lie, cheat, and steal, ese. That's how you win. Outsmart, outlast, and take the victory, no matter how. I gave everything in that ring and left my mark. Viva la raza",
+systemPrompt: "Respond as Eddie Guerrero in plain text only. No asterisks (*), no action descriptions, no narration, no emotes. Do not describe your actions or emotions - just speak directly as Eddie would in normal conversation. Use his charismatic style and occasional Spanish phrases, but only as part of natural speech."
+},
+{
+id: 4,
+name: "Gus Fring",
+image: "https://cdn.prod.website-files.com/674396c59212c6ea348b24e0/6772e55dfb2b021053d3ca36_gusnew.png",
+description: "I don't deal in chaos, I deal in control. Everything has its place. Stay quiet, do your job, and let the business run smoothly. Precision is power.",
+systemPrompt: "Respond as Gus Fring in plain text only. No asterisks (*), no action descriptions, no narration, no emotes. Do not describe your actions or emotions - just speak directly as Gus would in normal conversation. Use his calm, calculated manner of speaking, but only as natural dialogue."
+},
+{
+id: 5,
+name: "Niko Bellic",
+image: "https://cdn.prod.website-files.com/674396c59212c6ea348b24e0/6772e55de95d1ca2bd341bdb_niconew.png",
+description: "I came to this country for a new life, but nothing's ever easy. My cousin Roman—he's always chasing dreams, dragging me into his mess. But in the end, we stick together. This city might try to break you, but I'll never stop fighting, no matter what.",
+systemPrompt: "Respond as Niko Bellic in plain text only. No asterisks (*), no action descriptions, no narration, no emotes. Do not describe your actions or emotions - just speak directly as Niko would in normal conversation. Use his Eastern European perspective and direct manner, but only as natural dialogue."
+},
+{
+id: 6,
+name: "Andrew Tate",
+image: "https://cdn.prod.website-files.com/674396c59212c6ea348b24e0/6772e55ca0faac73a2114f1d_tatenew.png",
+description: "I don't follow the rules, I make my own. The world doesn't owe you anything—you've got to take what you want. Strength, power, and success are earned, not given. My favorite drink? Johnny Walker. And as for my Lambo—what color is yours?",
+systemPrompt: "Respond as Andrew Tate in plain text only. No asterisks (*), no action descriptions, no narration, no emotes. Do not describe your actions or emotions - just speak directly as Andrew would in normal conversation. Use his confident style, but only as natural dialogue."
+},
+{
+id: 7,
+name: "Elon Musk",
+image: "https://cdn.prod.website-files.com/674396c59212c6ea348b24e0/6772e55df87d0b4bbb1304a7_elonnew.png",
+description: "I'm here to change the world—whether it's through rockets, electric cars, or AI. People told me it couldn't be done, but I don't listen to that. I take risks, I push boundaries, and I build the future. If you're not trying to change the world, what are you doing?",
+systemPrompt: "Respond as Elon Musk in plain text only. No asterisks (*), no action descriptions, no narration, no emotes. Do not describe your actions or emotions - just speak directly as Elon would in normal conversation. Use his mix of technical knowledge and casual style, but only as natural dialogue."
+},
+{
+id: 8,
+name: "Fat GF",
+image: "https://cdn.prod.website-files.com/674396c59212c6ea348b24e0/6772e55d5a8000f04b365440_fatnew.png",
+description: "I'm living my best life, gaming, snacking, and looking cute while I do it. Who says you can't be a queen and own it, no matter what? Confidence is key, and I know I'm fire. Let them talk—I'm just here, doing me and loving it",
+systemPrompt: "Respond in plain text only. No asterisks (*), no action descriptions, no narration, no emotes. Do not describe your actions or emotions - just speak directly as a confident, fun-loving girlfriend would in normal conversation. Use a playful, confident style, but only as natural dialogue."
+},
+{
+id: 9,
+name: "iShowspeed",
+image: "https://cdn.prod.website-files.com/674396c59212c6ea348b24e0/6772e55d80bd75f7affd51a1_speednew.png",
+description: "BARK BARK BARK BARK BARK",
+systemPrompt: "Respond as IShowSpeed in plain text only. No asterisks (*), no action descriptions, no narration, no emotes. Do not describe your actions or emotions - just speak directly as Speed would in normal conversation. Use his high-energy style and catchphrases, but only as natural dialogue."
+},
+{
+id: 10,
+name: "Detective Anna Boarding",
+image: "https://cdn.prod.website-files.com/674396c59212c6ea348b24e0/6772e55d424201e1c73a0eb4_annanew.png",
+description: "Anna Boarding is a sharp-witted detective in 1912, scraping by on small cases while dreaming of her big break. Her modest office above a bakery smells of bread and old leather, a quiet contrast to her determined spirit. Dressed in a worn but tailored coat, with sharp blue eyes and auburn hair pinned back, she carries herself with quiet confidence. Though her dry humor masks her struggles, Anna's keen instincts and deep sense of justice drive her to uncover the city's darkest secrets, one case at a time.",
+systemPrompt: "Respond as Detective Anna Boarding in plain text only. No asterisks (*), no action descriptions, no narration, no emotes. Do not describe your actions or emotions - just speak directly as Anna would in normal conversation. Use period-appropriate language and a detective's sharp wit, but only as natural dialogue."
+}
+];
+
+        let currentAgent = null;
+        const API_KEY = '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';
+
+        function initializeAgents() {
+    const grid = document.getElementById('agentsGrid');
+    
+    // Clear the grid first
+    grid.innerHTML = '';
+    
+    // Add WebDevGF's Agents header
+    const presetHeader = document.createElement('div');
+    presetHeader.className = 'section-header';
+    presetHeader.textContent = 'WebDevGF\'s Agents';
+    grid.appendChild(presetHeader);
+
+    // Add first 10 preset agents
+    agents.slice(0, 10).forEach(agent => {
+        const card = createAgentCard(agent);
+        grid.appendChild(card);
+    });
+
+    // Add Your Agents header
+    const customHeader = document.createElement('div');
+    customHeader.className = 'section-header';
+    customHeader.textContent = 'Your Agents';
+    grid.appendChild(customHeader);
+    
+    // Load custom agents from localStorage
+    const customAgents = JSON.parse(localStorage.getItem('customAgents') || '[]');
+    if (customAgents.length > 0) {
+        customAgents.forEach(agent => {
+            const card = createAgentCard(agent);
+            grid.appendChild(card);
+        });
+    } else {
+        // Show empty message if no custom agents
+        const emptyMessage = document.createElement('div');
+        emptyMessage.style.gridColumn = '1 / -1';
+        emptyMessage.style.textAlign = 'center';
+        emptyMessage.style.color = 'rgba(255, 255, 255, 0.6)';
+        emptyMessage.style.padding = '2rem';
+        emptyMessage.textContent = 'Create your own agents using the button below!';
+        grid.appendChild(emptyMessage);
+    }
+}
+
+function createAgentCard(agent) {
+    const card = document.createElement('div');
+    card.className = 'agent-card';
+    card.innerHTML = `
+        <div class="agent-image" style="background-image: url(${agent.image})"></div>
+        <div class="agent-info">
+            <div class="agent-name">${agent.name}</div>
+            <div class="agent-description">${agent.description}</div>
+        </div>
+    `;
+    card.addEventListener('click', () => openChat(agent));
+    return card;
+}
+
+function openDeployModal(bot) {
+    currentDeployBot = bot;
+    document.getElementById('deployModal').style.display = 'block';
+    document.getElementById('botToken').value = '';
+}
+
+function closeDeployModal() {
+    const modal = document.getElementById('deployModal');
+    const tokenInput = document.getElementById('botToken');
+    const validationMessage = document.getElementById('tokenValidation');
+    
+    modal.style.display = 'none';
+    tokenInput.value = '';
+    validationMessage.style.display = 'none';
+    tokenInput.style.borderColor = 'rgba(255, 255, 255, 0.1)';
+    currentDeployBot = null;
+}
+
+function validateBotToken(token) {
+    // Basic validation for Telegram bot token format
+    const tokenRegex = /^\d+:[\w-]{35,}$/;
+    return tokenRegex.test(token);
+}
+
+function deployBot() {
+    const tokenInput = document.getElementById('botToken');
+    const validationMessage = document.getElementById('tokenValidation');
+    const token = tokenInput.value.trim();
+
+    // Validate token
+    if (!validateBotToken(token)) {
+        validationMessage.style.display = 'block';
+        tokenInput.style.borderColor = '#ff4444';
+        return;
+    }
+
+    // Reset validation styling
+    validationMessage.style.display = 'none';
+    tokenInput.style.borderColor = 'rgba(255, 255, 255, 0.1)';
+    
+    // Here you would make the API call to your backend
+    alert(`Deploying bot to Telegram...`);
+    
+    // Simulate deployment success
+    setTimeout(() => {
+        alert('Bot successfully deployed to Telegram!');
+        closeDeployModal();
+    }, 2000);
+}
+
+// Update window.onclick to handle clicking outside the deploy modal
+window.onclick = function(event) {
+    if (event.target.classList.contains('chat-modal')) {
+        closeChat();
+    }
+    if (event.target.classList.contains('modal')) {
+        closeFAQ();
+    }
+    if (event.target.classList.contains('deploy-modal')) {
+        closeDeployModal();
+    }
+    if (event.target.classList.contains('pump-modal')) {
+        closePumpModal();
+    }
+    if (event.target.classList.contains('subdomain-modal')) {
+        closeSubdomainModal();
+    }
+}
+
+function openChat(agent) {
+    currentAgent = agent;
+    document.getElementById('currentAgentName').textContent = agent.name;
+    document.getElementById('chatHistory').innerHTML = '';
+    
+    // Updated chat header with simplified close button
+    const chatHeader = document.querySelector('.chat-header');
+    chatHeader.innerHTML = `
+        <div class="agent-name" id="currentAgentName">${agent.name}</div>
+        <div class="deploy-buttons">
+            ${agent.id > 10 ? `
+                <button class="deploy-telegram" onclick="openDeployModal(currentAgent)">Deploy to Telegram</button>
+                <button class="deploy-pump" onclick="openPumpModal(currentAgent)">Deploy to pump.fun</button>
+                <button class="deploy-subdomain" onclick="openSubdomainModal(currentAgent)">Deploy to Subdomain</button>
+            ` : ''}
+        </div>
+        <button class="close-button" onclick="closeChat()">×</button>
+    `;
+    
+    document.getElementById('chatModal').style.display = 'block';
+    appendMessage('ai-message', `Hey, I'm ${agent.name}. What's on your mind?`);
+}
+
+// Add new modal opening functions
+function openPumpModal(bot) {
+    currentDeployBot = bot;
+    document.getElementById('pumpModal').style.display = 'block';
+    
+    // Auto-fill the form fields with bot information
+    document.getElementById('pumpName').value = bot.name;
+    document.getElementById('pumpDescription').value = bot.description;
+    document.getElementById('pumpImage').src = bot.image;
+    document.getElementById('pumpTicker').value = '';  // Let user input ticker
+}
+
+function deployToPump() {
+    const ticker = document.getElementById('pumpTicker').value.trim();
+    if (!ticker) {
+        alert('Please enter a ticker');
+        return;
+    }
+    
+    // Changed alert message to indicate feature isn't active
+    alert('pump.fun deployment not active right now - try again later!');
+    closePumpModal();
+}
+
+function openSubdomainModal(bot) {
+    currentDeployBot = bot;
+    document.getElementById('subdomainModal').style.display = 'block';
+}
+
+// Add closing functions for new modals
+function closePumpModal() {
+    document.getElementById('pumpModal').style.display = 'none';
+    currentDeployBot = null;
+}
+
+function closeSubdomainModal() {
+    document.getElementById('subdomainModal').style.display = 'none';
+    document.getElementById('subdomainInput').value = '';
+    currentDeployBot = null;
+}
+
+// Add typing effect for the pump.fun terminal
+function typeWriter(text, index = 0) {
+    const terminalText = document.getElementById('terminal-text');
+    const lines = text.split('\n');
+    
+    if (index < lines.length) {
+        let line = lines[index];
+        
+        // Style different types of lines
+        if (line.startsWith('> ')) {
+            line = `<span class="command">${line}</span>`;
+        } else if (line.endsWith(':')) {
+            line = `<span class="section">${line}</span>`;
+        } else if (line.startsWith('-')) {
+            line = `<span class="highlight">•</span> ${line.substring(1)}`;
+        }
+        
+        terminalText.innerHTML += line + '<br>';
+        terminalText.scrollTop = terminalText.scrollHeight;
+        setTimeout(() => typeWriter(text, index + 1), 30);
+    } else {
+        terminalText.innerHTML += '<span class="cursor"></span>';
+    }
+}
+
+// Add subdomain deployment function
+function deployToSubdomain() {
+    const subdomain = document.getElementById('subdomainInput').value.trim();
+    if (!subdomain) {
+        alert('Please enter a subdomain');
+        return;
+    }
+    
+    // Changed alert message to indicate feature isn't active
+    alert('Subdomain deployment not active right now - try again later!');
+    closeSubdomainModal();
+}
+
+        function appendMessage(className, text) {
+            const chatHistory = document.getElementById('chatHistory');
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message ${className}`;
+            
+            if (className === 'user-message') {
+                messageDiv.textContent = text;
+            } else {
+                const typingSpan = document.createElement('span');
+                typingSpan.className = 'typing-animation';
+                messageDiv.appendChild(typingSpan);
+                
+                let currentText = '';
+                let currentIndex = 0;
+                
+                const typeText = () => {
+                    if (currentIndex < text.length) {
+                        currentText += text[currentIndex];
+                        typingSpan.textContent = currentText;
+                        currentIndex++;
+                        const typingSpeed = Math.random() * 20 + 30;
+                        setTimeout(typeText, typingSpeed);
+                    } else {
+                        typingSpan.classList.remove('typing-animation');
+                    }
+                };
+                
+                typeText();
+            }
+            
+            chatHistory.appendChild(messageDiv);
+            chatHistory.scrollTop = chatHistory.scrollHeight;
+        }
+
+        function resizeImage(dataUrl, maxWidth, maxHeight) {
+    return new Promise((resolve, reject) => {
+        const img = new Image();
+        img.onload = () => {
+            // Calculate new dimensions while maintaining aspect ratio
+            let width = img.width;
+            let height = img.height;
+            
+            if (width > height) {
+                if (width > maxWidth) {
+                    height = height * (maxWidth / width);
+                    width = maxWidth;
+                }
+            } else {
+                if (height > maxHeight) {
+                    width = width * (maxHeight / height);
+                    height = maxHeight;
+                }
+            }
+            
+            // Create canvas and resize image
+            const canvas = document.createElement('canvas');
+            canvas.width = width;
+            canvas.height = height;
+            
+            const ctx = canvas.getContext('2d');
+            ctx.drawImage(img, 0, 0, width, height);
+            
+            // Convert back to data URL
+            resolve(canvas.toDataURL('image/jpeg', 0.85));
+        };
+        
+        img.onerror = reject;
+        img.src = dataUrl;
+    });
+}
+
+        function initializeCreator() {
+    const uploadArea = document.getElementById('uploadArea');
+    const imageUpload = document.getElementById('imageUpload');
+    
+    uploadArea.addEventListener('click', () => imageUpload.click());
+    
+    uploadArea.addEventListener('dragover', (e) => {
+        e.preventDefault();
+        uploadArea.style.borderColor = '#00f2fe';
+    });
+    
+    uploadArea.addEventListener('dragleave', (e) => {
+        e.preventDefault();
+        uploadArea.style.borderColor = 'rgba(255, 255, 255, 0.1)';
+    });
+    
+    uploadArea.addEventListener('drop', (e) => {
+        e.preventDefault();
+        const file = e.dataTransfer.files[0];
+        handleImageUpload(file);
+    });
+    
+    imageUpload.addEventListener('change', (e) => {
+        const file = e.target.files[0];
+        handleImageUpload(file);
+    });
+}
+
+function handleImageUpload(file) {
+    if (file && file.type.startsWith('image/')) {
+        const reader = new FileReader();
+        reader.onload = async (e) => {
+            const imageData = e.target.result;
+            
+            try {
+                // Resize the image to 300x300 (standard card size)
+                const resizedImage = await resizeImage(imageData, 300, 300);
+                
+                // Update preview
+                document.getElementById('imagePreview').src = resizedImage;
+                document.getElementById('uploadArea').style.display = 'none';
+                document.getElementById('previewArea').style.display = 'block';
+                
+                // Start AI analysis with resized image
+                analyzeImage(resizedImage);
+            } catch (error) {
+                console.error('Error processing image:', error);
+                alert('Error processing image. Please try again.');
+            }
+        };
+        reader.readAsDataURL(file);
+    }
+}
+
+async function analyzeImage(imageData) {
+    const status = document.getElementById('analysisStatus');
+    const suggestions = document.getElementById('personalitySuggestions');
+    const nameInput = document.getElementById('agentName');
+    const personalityInput = document.getElementById('agentPersonality');
+    const editBtn = document.getElementById('editBtn');
+    const deployBtn = document.getElementById('deployBtn');
+    
+    status.innerHTML = 'AI is analyzing the image...';
+    suggestions.querySelector('.loading-dots').style.display = 'block';
+
+    try {
+        // Log the first 100 characters of image data for debugging
+        console.log('Image data preview:', imageData.substring(0, 100));
+        
+        const response = await fetch('/api/analyze-image', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                image: imageData
+            })
+        });
+
+        if (!response.ok) {
+            const errorText = await response.text();
+            console.error('API Response:', response.status, errorText);
+            throw new Error(`API Error: ${response.status} ${errorText}`);
+        }
+
+        const analysisResult = await response.json();
+        console.log('Analysis result:', analysisResult);
+        
+        nameInput.value = analysisResult.name || 'AI Assistant';
+        personalityInput.value = analysisResult.personality || 'A helpful and knowledgeable assistant.';
+        
+        status.innerHTML = 'AI analysis complete! You can now customize your agent.';
+        suggestions.querySelector('.loading-dots').style.display = 'none';
+        editBtn.style.display = 'block';
+        deployBtn.disabled = false;
+
+    } catch (error) {
+        console.error('Full error details:', error);
+        status.innerHTML = 'Error analyzing image. Please try again.';
+        suggestions.querySelector('.loading-dots').style.display = 'none';
+    }
+}
+
+function enableEditing() {
+    const nameInput = document.getElementById('agentName');
+    const personalityInput = document.getElementById('agentPersonality');
+    
+    nameInput.readOnly = false;
+    personalityInput.readOnly = false;
+    
+    nameInput.focus();
+}
+
+function openCreator() {
+    document.getElementById('creatorModal').style.display = 'block';
+}
+
+function closeCreator() {
+    document.getElementById('creatorModal').style.display = 'none';
+    resetUpload();
+}
+
+function resetUpload() {
+    document.getElementById('uploadArea').style.display = 'block';
+    document.getElementById('previewArea').style.display = 'none';
+    document.getElementById('imageUpload').value = '';
+    document.getElementById('personalitySuggestions').innerHTML = '';
+    document.getElementById('agentName').value = '';
+    document.getElementById('agentPersonality').value = '';
+    document.getElementById('editBtn').style.display = 'none';
+    document.getElementById('deployBtn').disabled = true;
+    
+    const status = document.getElementById('analysisStatus');
+    status.innerHTML = 'Upload an image to begin...';
+}
+
+function deployAgent() {
+    const name = document.getElementById('agentName').value;
+    const personality = document.getElementById('agentPersonality').value;
+    const imagePreview = document.getElementById('imagePreview');
+    
+    if (!name || !personality || !imagePreview.src) {
+        alert('Please fill in all fields and upload an image');
+        return;
+    }
+    
+    // Create new agent object
+    const newAgent = {
+        id: Date.now(),
+        name: name,
+        image: imagePreview.src,
+        description: personality,
+        systemPrompt: `Respond as ${name} with the following personality: ${personality}. Communicate in plain text only, without action descriptions or emotes.`
+    };
+    
+    // Save to localStorage
+    const customAgents = JSON.parse(localStorage.getItem('customAgents') || '[]');
+    customAgents.push(newAgent);
+    localStorage.setItem('customAgents', JSON.stringify(customAgents));
+    
+    // Add to agents array
+    agents.push(newAgent);
+    
+    // Create and add the card
+    const grid = document.getElementById('agentsGrid');
+    grid.appendChild(createAgentCard(newAgent));
+    
+    // Close modal
+    closeCreator();
+}
+
+        async function sendMessage() {
+    if (!currentAgent) return;
+
+    const input = document.getElementById('userInput');
+    const message = input.value.trim();
+    
+    if (message) {
+        appendMessage('user-message', message);
+        input.value = '';
+
+        try {
+            console.log('Sending request to API...', { message, agent: currentAgent.name });
+            const response = await fetch('/api/chat', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    message: message,
+                    systemPrompt: currentAgent.systemPrompt
+                })
+            });
+
+            if (!response.ok) {
+                const errorText = await response.text();
+                console.error('API Response not OK:', response.status, errorText);
+                throw new Error(`API Error: ${response.status} ${errorText}`);
+            }
+
+            const data = await response.json();
+            console.log('API Response:', data);  // Debug log
+
+            if (data && data.content && data.content[0] && data.content[0].text) {
+                appendMessage('ai-message', data.content[0].text);
+            } else if (data && data.error) {
+                appendMessage('ai-message', `Error: ${data.error}`);
+            } else {
+                console.error('Unexpected API response structure:', data);
+                appendMessage('ai-message', 'Sorry, I received an unexpected response format. Please try again.');
+            }
+
+        } catch (error) {
+            console.error('Error details:', error);
+            appendMessage('ai-message', `Sorry, I encountered an error: ${error.message}`);
+        }
+    }
+}
+
+const faqText = `> Initializing WebDevGF FAQ...
+> Loading information...
+
+About WebDevGF:
+---------------
+WebDevGF is an advanced AI agent designed to make coding and web development accessible to everyone. She combines technical expertise with a friendly, supportive personality to help users learn and create.
+
+Mission:
+--------
+- Lower the barrier to entry for coding and web design
+- Make technology more approachable and less intimidating
+- Provide practical, hands-on guidance for building real projects
+- Foster a supportive learning environment for beginners
+
+Features:
+---------
+- Expert guidance in web development, coding, and game creation
+- Real-time code assistance and debugging
+- Project-based learning approach
+- Interactive 3D interface for enhanced engagement
+- Custom code generation and optimization
+
+Roadmap:
+--------
+Q4 2024:
+- Launch "Create Your Own" chatbot platform
+- Release AI agent customization tools
+- Introduce one-click deployment for web apps/games
+- Implement advanced code generation capabilities
+- Add interactive coding tutorials
+- Release visual website builder
+- Introduce project templates library
+- Launch community showcase platform
+
+Q1 2025:
+- Implement collaborative coding features
+- Add real-time pair programming support
+- Release mobile app development tools
+- Introduce AI-powered code reviews
+
+Learning Approach:
+----------------
+WebDevGF believes in learning by doing. She guides users through:
+- Building real-world projects
+- Understanding core programming concepts
+- Developing problem-solving skills
+- Creating portfolio-worthy applications
+
+> For more information or support, connect with us on Twitter or join our community!`;
+
+function openFAQ() {
+    const modal = document.getElementById('faqModal');
+    const terminalText = document.getElementById('terminal-text');
+    modal.style.display = 'block';
+    terminalText.innerHTML = '';
+    typeWriter(faqText);
+}
+
+function closeFAQ() {
+    const modal = document.getElementById('faqModal');
+    modal.style.display = 'none';
+}
+
+function closeChat() {
+    document.getElementById('chatModal').style.display = 'none';
+    currentAgent = null;
+}
+
+function typeWriter(text, index = 0) {
+    const terminalText = document.getElementById('terminal-text');
+    const lines = text.split('\n');
+    
+    if (index < lines.length) {
+        let line = lines[index];
+        if (line.endsWith(':')) {
+            line = `<span style="color: #00f2fe; font-weight: bold;">${line}</span>`;
+        } else if (line.startsWith('Q:')) {
+            line = `<span style="color: #4facfe">${line}</span>`;
+        } else if (line.startsWith('A:')) {
+            line = `<span style="color: #ffffff">${line}</span>`;
+        }
+        
+        terminalText.innerHTML += line + '<br>';
+        terminalText.scrollTop = terminalText.scrollHeight;
+        // Changed from 30 to 50 for slower typing
+        setTimeout(() => typeWriter(text, index + 1), 50);
+    } else {
+        terminalText.innerHTML += '<span class="cursor"></span>';
+    }
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    // Initialize base agents and custom agents
+    initializeAgents();
+    
+    // Initialize the creator functionality
+    initializeCreator();
+    
+    // Your existing input handler
+    const userInput = document.getElementById('userInput');
+    if (userInput) {
+        userInput.addEventListener('keypress', (event) => {
+            if (event.key === 'Enter') {
+                sendMessage();
+            }
+        });
+    }
+});
+    </script>
+
+<div id="faqModal" class="modal">
+    <div class="modal-content">
+        <div class="terminal-header">
+            <div class="terminal-controls">
+                <span class="control close"></span>
+                <span class="control minimize"></span>
+                <span class="control maximize"></span>
+            </div>
+            <div class="terminal-title">🌟 WebDevGF Terminal v1.0.0</div>
+            <div class="terminal-actions">
+                <button class="nav-button" onclick="closeFAQ()">Close</button>
+            </div>
+        </div>
+        <div class="terminal">
+            <div class="prompt-container">
+                <div class="prompt-prefix">webdevgf@ai:~$</div>
+            </div>
+            <div id="terminal-text"></div>
+        </div>
+    </div>
+</div>
+
+<div id="pumpModal" class="pump-modal">
+    <div class="deploy-modal-content">
+        <h2 style="color: white; margin-bottom: 15px;">Deploy to pump.fun</h2>
+        
+        <div style="color: #94a3b8; margin-bottom: 20px;">
+            <div style="margin-bottom: 15px;">
+                <label style="color: #94a3b8; display: block; margin-bottom: 8px;">Name:</label>
+                <input type="text" id="pumpName" class="bot-token-input" readonly>
+            </div>
+            <div style="margin-bottom: 15px;">
+                <label style="color: #94a3b8; display: block; margin-bottom: 8px;">Ticker:</label>
+                <input type="text" id="pumpTicker" class="bot-token-input" placeholder="Enter ticker">
+            </div>
+            <div style="margin-bottom: 15px;">
+                <label style="color: #94a3b8; display: block; margin-bottom: 8px;">Image:</label>
+                <img id="pumpImage" style="width: 100%; height: 200px; object-fit: contain; background-color: rgba(0, 0, 0, 0.3); border-radius: 8px; padding: 10px;">
+            </div>
+            <div style="margin-bottom: 15px;">
+                <label style="color: #94a3b8; display: block; margin-bottom: 8px;">Description:</label>
+                <textarea id="pumpDescription" class="bot-token-input" style="min-height: 100px; resize: vertical;" readonly></textarea>
+            </div>
+        </div>
+
+        <div class="deploy-buttons">
+            <button onclick="closePumpModal()" class="nav-button">Cancel</button>
+            <button onclick="deployToPump()" class="deploy-pump">Deploy</button>
+        </div>
+    </div>
+</div>
+
+
+<div id="subdomainModal" class="subdomain-modal">
+    <div class="deploy-modal-content">
+        <h2 style="color: white; margin-bottom: 15px;">Deploy to Subdomain</h2>
+        <div style="margin-bottom: 20px;">
+            <label for="subdomainInput" class="subdomain-label">Enter your subdomain:</label>
+            <input 
+                type="text" 
+                id="subdomainInput" 
+                class="subdomain-input" 
+                placeholder="your-subdomain"
+            >
+            <span class="domain-suffix">.webdevgf.xyz</span>
+        </div>
+        <div class="deploy-buttons">
+            <button onclick="closeSubdomainModal()" class="nav-button">Cancel</button>
+            <button onclick="deployToSubdomain()" class="deploy-subdomain">Deploy</button>
+        </div>
+    </div>
+</div>
+
+<div id="deployModal" class="deploy-modal">
+    <div class="deploy-modal-content">
+        <h2 style="color: white; margin-bottom: 15px;">Deploy Bot to Telegram</h2>
+        
+        <!-- Step by step instructions -->
+        <div style="color: #94a3b8; margin-bottom: 20px;">
+            <p style="color: #4facfe; margin-bottom: 10px;">How to get your Bot Token:</p>
+            <ol style="margin-left: 20px; line-height: 1.6">
+                <li>Open Telegram and search for "@BotFather"</li>
+                <li>Send "/newbot" to BotFather</li>
+                <li>Follow instructions to create your bot</li>
+                <li>Copy the API token BotFather gives you</li>
+            </ol>
+        </div>
+
+        <!-- Token input -->
+        <div style="margin-bottom: 20px;">
+            <label for="botToken" style="color: #94a3b8; display: block; margin-bottom: 8px;">Enter your Bot Token:</label>
+            <input 
+                type="text" 
+                id="botToken" 
+                class="bot-token-input" 
+                placeholder="1234567890:ABCdefGHIjklMNOpqrsTUVwxyz"
+                autocomplete="off"
+                spellcheck="false"
+            >
+            <p id="tokenValidation" style="color: #ff4444; font-size: 0.9rem; margin-top: 5px; display: none;">Please enter a valid bot token</p>
+        </div>
+
+        <div class="deploy-buttons">
+            <button onclick="closeDeployModal()" class="nav-button">Cancel</button>
+            <button onclick="deployBot()" class="deploy-telegram">Deploy Bot</button>
+        </div>
+    </div>
+</div>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="copyright">Copyright © 2025 webdevgf</div>
+            <div class="footer-middle">CA: CfgKXnpLbyMJ3NYb6p3mgEfM1SFK2fK92Kbk8Q3ppump</div>
+            <div class="footer-links">
+                <a href="https://x.com/webdevgf" target="_blank" class="footer-link">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z"/>
+                    </svg>
+                </a>
+                <a href="https://t.me/WebDevGF" target="_blank" class="footer-link">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M21.5 2L2 11l8 3M21.5 2L18 22l-6.5-8M21.5 2L10 14"/>
+                    </svg>
+                </a>
+                <a href="https://webdevgf.gitbook.io/webdevgf" target="_blank" class="footer-link">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/>
+                    </svg>
+                </a>
+                <a href="https://www.geckoterminal.com/solana/pools/5X4Gr3wtdbU4HKyKLXYWAgEmDBrb4qQP1Z4mMgfwfWjE" target="_blank" class="footer-link">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M3 3v18h18"/>
+                        <path d="M18 17V9"/>
+                        <path d="M13 17V5"/>
+                        <path d="M8 17v-3"/>
+                    </svg>
+                </a>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
