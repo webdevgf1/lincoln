@@ -840,22 +840,21 @@
             <model-viewer
     id="characterViewer"
     src="https://raw.githubusercontent.com/my904/lincoln/main/lincoln.glb"
+    animation-name="idle"
     camera-target="0 1.6 0"
     camera-orbit="0deg 80deg 1.4m"
     field-of-view="25deg"
-    exposure="2"
-    environment-image="apartment"
+    interpolation-decay="200"
+    environment-image="neutral"
     skybox-image="neutral"
-    auto-rotate="false"
+    exposure="2"
+    disable-zoom="true"
+    disable-pan="true"
     interaction-policy="none"
-    disable-zoom
-    disable-pan
-    camera-controls="false"
-    tone-mapping="filmic"
-    shadow-intensity="0"
-    gamma="2"
-    renderer-settings='{"physicallyCorrectLights":true}'
-></model-viewer>
+    auto-rotate="false"
+    rotation-per-second="0deg"
+    tone-mapping="commerce">
+</model-viewer>
         </div>
 
         <div class="chat-interface">
