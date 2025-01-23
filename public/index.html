@@ -829,16 +829,19 @@
     camera-target="0 1.6 0"
     camera-orbit="0deg 80deg 1.4m"
     field-of-view="25deg"
-    exposure="5"
-    environment-image="neutral"
+    exposure="2"
+    environment-image="apartment"
     skybox-image="neutral"
-    max-camera-orbit="infinity 180deg infinity"
-    min-camera-orbit="-infinity 0deg -infinity"
-    rotation-per-second="0deg"
     auto-rotate="false"
+    interaction-policy="none"
+    disable-zoom
+    disable-pan
     camera-controls="false"
-    interaction-policy="none">
-</model-viewer>
+    tone-mapping="filmic"
+    shadow-intensity="0"
+    gamma="2"
+    renderer-settings='{"physicallyCorrectLights":true}'
+></model-viewer>
         </div>
 
         <div class="chat-interface">
