@@ -830,24 +830,21 @@
     camera-target="0 1.6 0"
     camera-orbit="0deg 80deg 1.4m"
     field-of-view="25deg"
-    exposure="1.5"
-    shadow-intensity="1"
-    shadow-softness="1"
-    environment-image="legacy"
-    skybox-image="legacy">
+    exposure="3"
+    shadow-intensity="0.5"
+    shadow-softness="0.8"
+    environment-image="neutral"
+    skybox-image="neutral"
+    tone-mapping="aces"
+    disable-zoom="true"
+    disable-pan="true"
+    interaction-policy="none"
+    auto-rotate="false">
     <div class="model-lighting" slot="default">
-        <div class="light front" style="transform: translate3d(0m, 2m, 4m)">
-            <div class="light__target"></div>
-        </div>
-        <div class="light top" style="transform: translate3d(0m, 4m, 0m)">
-            <div class="light__target"></div>
-        </div>
-        <div class="light left" style="transform: translate3d(-4m, 2m, 0m)">
-            <div class="light__target"></div>
-        </div>
-        <div class="light right" style="transform: translate3d(4m, 2m, 0m)">
-            <div class="light__target"></div>
-        </div>
+        <div class="light front" style="transform: translate3d(0m, 3m, 4m) scale(2)"></div>
+        <div class="light top" style="transform: translate3d(0m, 5m, 0m) scale(3)"></div>
+        <div class="light left" style="transform: translate3d(-3m, 2m, 2m) scale(2)"></div>
+        <div class="light right" style="transform: translate3d(3m, 2m, 2m) scale(2)"></div>
     </div>
 </model-viewer>
         </div>
